@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>FIXMYCAR | เข้าสู่ระบบ</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/bb1b83cbaa.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        function nextStep() {
+            const phone = document.getElementById("inputPhone").value;
+            if (phone.length !== 12) {
+                alert("กรุณากรอกเบอร์มือถือให้ครบ 10 หลัก");
+                return;
+            }
+            document.getElementById("showPhone").textContent = phone;
+            document.getElementById("phoneStep").style.display = "none";
+            document.getElementById("otpStep").style.display = "block";
+            document.getElementById("loginBackButton").innerHTML = '<i class="fa-solid fa-arrow-left" aria-hidden="true"></i> ย้อนกลับ';
+            document.getElementById("loginBackButton").setAttribute("aria-label", "ย้อนกลับไปกรอกเบอร์โทรศัพท์");
+            document.querySelector(".otp-inputs input").focus();
+            generateRef();
+            startCountdown();
+        }
+        function handleLoginBack() {
+            const phoneStep = document.getElementById("phoneStep");
+            const otpStep = document.getElementById("otpStep");
+            if (otpStep.style.display !== "none") {
+                otpStep.style.display = "none";
+                phoneStep.style.display = "block";
+                clearTimeout(otpRedirectTimer);
+                document.querySelectorAll(".otp-inputs input").forEach(function (input) {
+                    input.value = "";
+                });
+                clearInterval(countdownTimer);
+                const resend = document.getElementById("resendLink");
+                resend.textContent = "ส่งรหัสอีกครั้งใน (59 วินาที)";
+                resend.style.pointerEvents = "none";
+                document.getElementById("loginBackButton").innerHTML = '<i class="fa-solid fa-house" aria-hidden="true"></i> กลับหน้าหลัก';
+                document.getElementById("loginBackButton").setAttribute("aria-label", "กลับหน้าหลัก");
+                document.getElementById("inputPhone").focus();
+                return;
+            }
+            window.location.href = "index.html";
+        }
+        function generateRef() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let ref = "";
+            for (let i = 0; i < 5; i++) {
+                ref += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById("refCode").textContent = ref;
+        }
+        let countdownTimer = null;
+        let otpRedirectTimer = null;
+        function startCountdown() {
+            const resend = document.getElementById("resendLink");
+            let seconds = 59;
+            clearInterval(countdownTimer);
+            resend.style.pointerEvents = "none";
+            resend.textContent = "ส่งรหัสอีกครั้งใน (" + seconds + " วินาที)";
+            countdownTimer = setInterval(function () {
+                seconds--;
+                if (seconds <= 0) {
+                    clearInterval(countdownTimer);
+                    resend.textContent = "ส่งรหัสอีกครั้ง";
+                    resend.style.pointerEvents = "auto";
+                    return;
+                }
+                resend.textContent = "ส่งรหัสอีกครั้งใน (" + seconds + " วินาที)";
+            }, 1000);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const otpInputs = document.querySelectorAll('.otp-inputs input');
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', function () {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    if (this.value && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                    clearTimeout(otpRedirectTimer);
+                    const isFull = Array.from(otpInputs).every(function (i) { return i.value !== ''; });
+                    if (isFull) {
+                        otpRedirectTimer = setTimeout(function () {
+                            window.location.href = 'index.html';
+                        }, 2000);
+                    }
+                });
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <main class="login-shell">
+     <div class="login-container">
+            <div class="login-page">
+                    <button class="login-back-button" id="loginBackButton" type="button" onclick="handleLoginBack()" aria-label="กลับหน้าหลัก">
+                        <i class="fa-solid fa-house" aria-hidden="true"></i> กลับหน้าหลัก
+                    </button>
+                    <img src="img/duckduck.gif" alt="duckduck" width="300" height="300">
+                    <h1>กรุณาเข้าสู่ระบบ</h1>
+                        <div id="phoneStep">
+                            <div class="phone-input">
+                                <input type="text" id="inputPhone" placeholder="เบอร์มือถือ" inputmode="numeric" maxlength="12" required autofocus oninput=" this.value = this.value .replace(/[^0-9]/g, '') .replace(/(\d{3})(\d{0,3})(\d{0,4})/, '$1-$2-$3') .replace(/-+$/, '') ">
+                            </div>
+                            <button type="button" class="next-button" onclick="nextStep()">กดถัดไป</button>
+                            <p class="terms-text">เมื่อดำเนินการต่อ แสดงว่าคุณยอมรับ<u>ข้อกำหนดการใช้งาน</u> และ<u>นโยบายความเป็นส่วนตัว</u>ของ FIXMYCAR</p>
+                        </div>
+                    <div id="otpStep" style="display: none;">
+                        <div class="otp-phone">
+                            <span>ส่ง SMS ไปที่เบอร์</span>
+                            <strong id="showPhone"></strong>
+                        </div>
+                        <div class="otp-ref">
+                            (Ref. <span id="refCode">4G16Y</span>)
+                        </div>
+                        <div class="otp-inputs">
+                            <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')" autofocus>
+                            <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')">
+                            <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')">
+                            <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')">
+                            <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')">
+                            <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')">
+                        </div>
+                        <a href="#" class="resend" id="resendLink" onclick="event.preventDefault(); startCountdown();">ส่งรหัสอีกครั้งใน (59 วินาที)</a>
+                    </div>
+            </div>
+    </div>
+    <div class="login-img">
+        <img src="img/lo.png" alt="">
+    </div>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <section class="col-12 col-sm-6 col-lg-3 footer-column">
+                    <a class="footer-brand" href="index.html">
+                        <img src="img/logo.png" alt="" width="48" height="48">
+                        <span>FIX MY CAR</span>
+                    </a>
+                    <p>บริการเรียกช่างซ่อมนอกสถานที่ ช่วยแก้ไขปัญหาเบื้องต้น สะดวก รวดเร็ว และให้บริการตลอด 24 ชั่วโมง</p>
+                </section>
+                <nav class="col-12 col-sm-6 col-lg-3 footer-column" aria-label="เมนูเว็บไซต์">
+                    <h2>เมนูเว็บไซต์</h2>
+                    <ul>
+                        <li><a href="index.html">หน้าหลัก</a></li>
+                        <li><a href="service.html">บริการของเรา</a></li>
+                        <li><a href="work.html">ตัวอย่างผลงาน</a></li>
+                        <li><a href="contactus.html">ติดต่อเรา</a></li>
+                    </ul>
+                </nav>
+                <section class="col-12 col-sm-6 col-lg-3 footer-column">
+                    <h2>พื้นที่ให้บริการ</h2>
+                    <ul>
+                        <li>ปทุมธานี (ธัญบุรีคลอง 1–13)</li>
+                        <li>ลำลูกกา</li>
+                        <li>ธัญบุรี / คลองหลวง</li>
+                    </ul>
+                </section>
+                <section class="col-12 col-sm-6 col-lg-3 footer-column">
+                    <h2>ติดต่อเรา</h2>
+                    <p><a href="tel:0211234567"><i class="fa-solid fa-phone" aria-hidden="true"></i> 02 1123 4567</a></p>
+                    <div class="footer-social">
+                        <a href="https://line.me/R/ti/p/@FIXMYCAR" target="_blank" rel="noopener noreferrer" aria-label="LINE FIXMYCAR"><i class="fa-brands fa-line" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/FIXMYCAR" target="_blank" rel="noopener noreferrer" aria-label="Facebook FIXMYCAR"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">© 2026 FIXMYCAR. สงวนลิขสิทธิ์.</div>
+        </div>
+    </footer>
+</body>
+</html>

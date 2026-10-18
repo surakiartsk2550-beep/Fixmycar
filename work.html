@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>FIXMYCAR | ผลงาน</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/bb1b83cbaa.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="work.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light site-navbar">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <img src="img/logo.png" alt="" width="55" height="55">
+            <span class="ml-3">FIX MY CAR</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="เปิดเมนูนำทาง">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavigation">
+            <ul class="navbar-nav align-items-lg-center">
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa-solid fa-house mr-2"></i>หน้าหลัก</a></li>
+                <li class="nav-item"><a class="nav-link" href="service.html"><i class="fa-solid fa-screwdriver-wrench mr-2"></i>บริการ</a></li>
+                <li class="nav-item"><a class="nav-link active" href="work.html"><i class="fa-solid fa-star-half-stroke mr-2"></i>ผลงาน</a></li>
+                <li class="nav-item"><a class="nav-link" href="contactus.html"><i class="fa-solid fa-headset mr-2"></i>ติดต่อเรา</a></li>
+            </ul>
+            <a href="login.html" class="btn-login navbar-login">เข้าสู่ระบบ</a>
+        </div>
+    </nav>
+    <main class="work-page">
+        <section class="portfolio">
+        <h1>
+            <i class="fa-solid fa-clipboard-list mr-2" aria-hidden="true"></i>ตัวอย่างผลงานของช่าง FIXMYCAR
+        </h1>
+        <div class="portfolio-grid">
+            <div class="work-item">
+                <div class="work-images">
+                    <img src="imgwork/Engine-before.jpg" alt="ห้องเครื่องก่อนล้าง">
+                    <img src="imgwork/Engine-after.jpg" alt="ห้องเครื่องหลังล้าง">
+                </div>
+                    <h3>ล้างห้องเครื่อง</h3>
+                </div>
+                    <div class="work-item">
+                        <div class="work-images">
+                            <img src="imgwork/Brake-disc-before.jpg" alt="ก่อนเจียรจานเบรก">
+                            <img src="imgwork/Brake-disc-after.jpg" alt="หลังเจียรจานเบรก">
+                        </div>
+                        <h3>เจียรจานเบรก</h3>
+                </div>
+                    <div class="work-item">
+                        <div class="work-images">
+                            <img src="imgwork/battery-before.jpg" alt="ก่อนเปลี่ยนแบตเตอรี่">
+                            <img src="imgwork/battery-after.jpg" alt="หลังเปลี่ยนแบตเตอรี่">
+                        </div>
+                            <h3>เปลี่ยนแบตเตอรี่</h3>
+                    </div>
+                    <div class="work-item">
+                        <div class="work-images">
+                            <img src="imgwork/Air-conditioner-before.jpg" alt="ก่อนล้างแอร์">
+                            <img src="imgwork/Air-conditioner-after.jpg" alt="หลังล้างแอร์">
+                        </div>
+                            <h3>ล้างแอร์</h3>
+                    </div>
+                </div>
+            </section>
+        <section class="reviews">
+                <div class="reviews-heading">
+                    <h2>
+                        <i class="fa-solid fa-comment-dots mr-2" aria-hidden="true"></i>รีวิวจากผู้ใช้งาน
+                    </h2>
+                    <button class="write-review-button" type="button" data-toggle="modal" data-target="#reviewModal">
+                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>เขียนรีวิว
+                    </button>
+                </div>
+                <div class="review-list">
+                </div>
+        </section>
+    </main>
+    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="reviewForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reviewModalTitle">เขียนรีวิว</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="ปิด">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="reviewName">ชื่อ</label>
+                            <input class="form-control" id="reviewName" name="name" maxlength="40" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewRating">คะแนน</label>
+                            <select class="form-control" id="reviewRating" name="rating" required>
+                                <option value="5">5 ดาว</option>
+                                <option value="4">4 ดาว</option>
+                                <option value="3">3 ดาว</option>
+                                <option value="2">2 ดาว</option>
+                                <option value="1">1 ดาว</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="reviewText">ความคิดเห็น</label>
+                            <textarea class="form-control" id="reviewText" name="review" rows="4" maxlength="400" required></textarea>
+                        </div>
+                        <div class="form-group mt-3 mb-0">
+                            <label for="reviewPhoto">แนบรูปภาพ (ไม่บังคับ)</label>
+                            <input class="form-control-file" id="reviewPhoto" name="photo" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+                            <small class="form-text text-muted">รองรับ JPG, PNG, WEBP หรือ GIF ขนาดไม่เกิน 5 MB</small>
+                            <div id="reviewPhotoError" class="text-danger" role="alert"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="write-review-button">ส่งรีวิว</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content image-modal-content">
+                <div class="modal-header image-modal-header">
+                    <h5 class="modal-title" id="imageModalTitle"></h5>
+                    <button type="button" class="close image-modal-close" data-dismiss="modal" aria-label="ปิดรูปภาพ">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body image-modal-body">
+                    <img id="expandedImage" src="" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const reviewPhotoInput = document.getElementById('reviewPhoto');
+        const reviewPhotoError = document.getElementById('reviewPhotoError');
+        const reviewPhotoUrls = [];
+
+        document.addEventListener('click', function (event) {
+            const image = event.target.closest('.work-images img, .review-photo');
+            if (!image) {
+                return;
+            }
+
+            const expandedImage = document.getElementById('expandedImage');
+            expandedImage.src = image.src;
+            expandedImage.alt = image.alt;
+            document.getElementById('imageModalTitle').textContent = image.alt;
+            $('#imageModal').modal('show');
+        });
+
+        reviewPhotoInput.addEventListener('change', function () {
+            reviewPhotoError.textContent = '';
+
+            const photo = this.files[0];
+            if (!photo) {
+                return;
+            }
+
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+            if (!allowedTypes.includes(photo.type)) {
+                reviewPhotoError.textContent = 'กรุณาเลือกไฟล์ JPG, PNG, WEBP หรือ GIF';
+            } else if (photo.size > 5 * 1024 * 1024) {
+                reviewPhotoError.textContent = 'รูปภาพต้องมีขนาดไม่เกิน 5 MB';
+            }
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const reviewerName = document.getElementById('reviewName').value.trim();
+            const reviewRating = Number(document.getElementById('reviewRating').value);
+            const reviewText = document.getElementById('reviewText').value.trim();
+            const photo = reviewPhotoInput.files[0];
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+            if (photo && (!allowedTypes.includes(photo.type) || photo.size > 5 * 1024 * 1024)) {
+                reviewPhotoError.textContent = photo.size > 5 * 1024 * 1024
+                    ? 'รูปภาพต้องมีขนาดไม่เกิน 5 MB'
+                    : 'กรุณาเลือกไฟล์ JPG, PNG, WEBP หรือ GIF';
+                return;
+            }
+
+            const reviewCard = document.createElement('article');
+            const reviewTop = document.createElement('div');
+            const reviewAvatar = document.createElement('span');
+            const avatarIcon = document.createElement('i');
+            const reviewerInfo = document.createElement('div');
+            const name = document.createElement('strong');
+            const stars = document.createElement('span');
+            const text = document.createElement('p');
+            let reviewPhoto;
+
+            reviewCard.className = 'review-card';
+            reviewTop.className = 'review-top';
+            reviewAvatar.className = 'review-avatar';
+            reviewAvatar.setAttribute('aria-hidden', 'true');
+            avatarIcon.className = 'fa-solid fa-user';
+            reviewerInfo.className = 'reviewer-info';
+            stars.className = 'stars';
+            stars.setAttribute('aria-label', reviewRating + ' จาก 5 ดาว');
+            name.textContent = reviewerName;
+            stars.textContent = '★'.repeat(reviewRating) + '☆'.repeat(5 - reviewRating);
+            text.textContent = reviewText;
+
+            if (photo) {
+                reviewPhoto = document.createElement('img');
+                reviewPhoto.className = 'review-photo';
+                reviewPhoto.alt = 'รูปภาพที่แนบมากับรีวิว';
+                reviewPhoto.src = URL.createObjectURL(photo);
+                reviewPhotoUrls.push(reviewPhoto.src);
+            }
+
+            reviewAvatar.appendChild(avatarIcon);
+            reviewerInfo.append(name, stars);
+            reviewTop.append(reviewAvatar, reviewerInfo);
+            reviewCard.append(reviewTop, text);
+            if (reviewPhoto) {
+                reviewCard.appendChild(reviewPhoto);
+            }
+            document.querySelector('.review-list').prepend(reviewCard);
+            reviewPhotoError.textContent = '';
+            document.getElementById('reviewForm').reset();
+            $('#reviewModal').modal('hide');
+        });
+
+        window.addEventListener('beforeunload', function () {
+            reviewPhotoUrls.forEach(function (url) {
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <section class="col-12 col-sm-6 col-lg-3 footer-column">
+                    <a class="footer-brand" href="index.html">
+                        <img src="img/logo.png" alt="" width="48" height="48">
+                        <span>FIX MY CAR</span>
+                    </a>
+                    <p>บริการเรียกช่างซ่อมนอกสถานที่ ช่วยแก้ไขปัญหาเบื้องต้น สะดวก รวดเร็ว และให้บริการตลอด 24 ชั่วโมง</p>
+                </section>
+                <nav class="col-12 col-sm-6 col-lg-3 footer-column" aria-label="เมนูเว็บไซต์">
+                    <h2>เมนูเว็บไซต์</h2>
+                    <ul>
+                        <li><a href="index.html">หน้าหลัก</a></li>
+                        <li><a href="service.html">บริการของเรา</a></li>
+                        <li><a href="work.html">ตัวอย่างผลงาน</a></li>
+                        <li><a href="contactus.html">ติดต่อเรา</a></li>
+                    </ul>
+                </nav>
+                <section class="col-12 col-sm-6 col-lg-3 footer-column">
+                    <h2>พื้นที่ให้บริการ</h2>
+                    <ul>
+                        <li>ปทุมธานี (รังสิต คลอง 1–13)</li>
+                        <li>ลำลูกกา</li>
+                        <li>ธัญบุรี / คลองหลวง</li>
+                    </ul>
+                </section>
+                <section class="col-12 col-sm-6 col-lg-3 footer-column">
+                    <h2>ติดต่อเรา</h2>
+                    <p><a href="tel:0211234567"><i class="fa-solid fa-phone" aria-hidden="true"></i> 02 1123 4567</a></p>
+                    <div class="footer-social">
+                        <a href="https://line.me/R/ti/p/@FIXMYCAR" target="_blank" rel="noopener noreferrer" aria-label="LINE FIXMYCAR"><i class="fa-brands fa-line" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/FIXMYCAR" target="_blank" rel="noopener noreferrer" aria-label="Facebook FIXMYCAR"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                    </div>
+                </section>
+            </div>
+            <div class="footer-bottom">© 2026 FIXMYCAR. สงวนลิขสิทธิ์.</div>
+        </div>
+    </footer>
+</body>
+</html>
