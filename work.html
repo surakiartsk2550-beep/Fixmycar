@@ -12,7 +12,106 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://kit.fontawesome.com/bb1b83cbaa.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="work.css">
+    <link rel="stylesheet" href="work.css">
+    <script>
+        const reviewPhotoInput = document.getElementById('reviewPhoto');
+        const reviewPhotoError = document.getElementById('reviewPhotoError');
+        const reviewPhotoUrls = [];
+
+        document.addEventListener('click', function (event) {
+            const image = event.target.closest('.work-images img, .review-photo');
+            if (!image) {
+                return;
+            }
+
+            const expandedImage = document.getElementById('expandedImage');
+            expandedImage.src = image.src;
+            expandedImage.alt = image.alt;
+            document.getElementById('imageModalTitle').textContent = image.alt;
+            $('#imageModal').modal('show');
+        });
+
+        reviewPhotoInput.addEventListener('change', function () {
+            reviewPhotoError.textContent = '';
+
+            const photo = this.files[0];
+            if (!photo) {
+                return;
+            }
+
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+            if (!allowedTypes.includes(photo.type)) {
+                reviewPhotoError.textContent = 'กรุณาเลือกไฟล์ JPG, PNG, WEBP หรือ GIF';
+            } else if (photo.size > 5 * 1024 * 1024) {
+                reviewPhotoError.textContent = 'รูปภาพต้องมีขนาดไม่เกิน 5 MB';
+            }
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const reviewerName = document.getElementById('reviewName').value.trim();
+            const reviewRating = Number(document.getElementById('reviewRating').value);
+            const reviewText = document.getElementById('reviewText').value.trim();
+            const photo = reviewPhotoInput.files[0];
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+            if (photo && (!allowedTypes.includes(photo.type) || photo.size > 5 * 1024 * 1024)) {
+                reviewPhotoError.textContent = photo.size > 5 * 1024 * 1024
+                    ? 'รูปภาพต้องมีขนาดไม่เกิน 5 MB'
+                    : 'กรุณาเลือกไฟล์ JPG, PNG, WEBP หรือ GIF';
+                return;
+            }
+
+            const reviewCard = document.createElement('article');
+            const reviewTop = document.createElement('div');
+            const reviewAvatar = document.createElement('span');
+            const avatarIcon = document.createElement('i');
+            const reviewerInfo = document.createElement('div');
+            const name = document.createElement('strong');
+            const stars = document.createElement('span');
+            const text = document.createElement('p');
+            let reviewPhoto;
+
+            reviewCard.className = 'review-card';
+            reviewTop.className = 'review-top';
+            reviewAvatar.className = 'review-avatar';
+            reviewAvatar.setAttribute('aria-hidden', 'true');
+            avatarIcon.className = 'fa-solid fa-user';
+            reviewerInfo.className = 'reviewer-info';
+            stars.className = 'stars';
+            stars.setAttribute('aria-label', reviewRating + ' จาก 5 ดาว');
+            name.textContent = reviewerName;
+            stars.textContent = '★'.repeat(reviewRating) + '☆'.repeat(5 - reviewRating);
+            text.textContent = reviewText;
+
+            if (photo) {
+                reviewPhoto = document.createElement('img');
+                reviewPhoto.className = 'review-photo';
+                reviewPhoto.alt = 'รูปภาพที่แนบมากับรีวิว';
+                reviewPhoto.src = URL.createObjectURL(photo);
+                reviewPhotoUrls.push(reviewPhoto.src);
+            }
+
+            reviewAvatar.appendChild(avatarIcon);
+            reviewerInfo.append(name, stars);
+            reviewTop.append(reviewAvatar, reviewerInfo);
+            reviewCard.append(reviewTop, text);
+            if (reviewPhoto) {
+                reviewCard.appendChild(reviewPhoto);
+            }
+            document.querySelector('.review-list').prepend(reviewCard);
+            reviewPhotoError.textContent = '';
+            document.getElementById('reviewForm').reset();
+            $('#reviewModal').modal('hide');
+        });
+
+        window.addEventListener('beforeunload', function () {
+            reviewPhotoUrls.forEach(function (url) {
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light site-navbar">
@@ -141,105 +240,6 @@
             </div>
         </div>
     </div>
-    <script>
-        const reviewPhotoInput = document.getElementById('reviewPhoto');
-        const reviewPhotoError = document.getElementById('reviewPhotoError');
-        const reviewPhotoUrls = [];
-
-        document.addEventListener('click', function (event) {
-            const image = event.target.closest('.work-images img, .review-photo');
-            if (!image) {
-                return;
-            }
-
-            const expandedImage = document.getElementById('expandedImage');
-            expandedImage.src = image.src;
-            expandedImage.alt = image.alt;
-            document.getElementById('imageModalTitle').textContent = image.alt;
-            $('#imageModal').modal('show');
-        });
-
-        reviewPhotoInput.addEventListener('change', function () {
-            reviewPhotoError.textContent = '';
-
-            const photo = this.files[0];
-            if (!photo) {
-                return;
-            }
-
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-            if (!allowedTypes.includes(photo.type)) {
-                reviewPhotoError.textContent = 'กรุณาเลือกไฟล์ JPG, PNG, WEBP หรือ GIF';
-            } else if (photo.size > 5 * 1024 * 1024) {
-                reviewPhotoError.textContent = 'รูปภาพต้องมีขนาดไม่เกิน 5 MB';
-            }
-        });
-
-        document.getElementById('reviewForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const reviewerName = document.getElementById('reviewName').value.trim();
-            const reviewRating = Number(document.getElementById('reviewRating').value);
-            const reviewText = document.getElementById('reviewText').value.trim();
-            const photo = reviewPhotoInput.files[0];
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-
-            if (photo && (!allowedTypes.includes(photo.type) || photo.size > 5 * 1024 * 1024)) {
-                reviewPhotoError.textContent = photo.size > 5 * 1024 * 1024
-                    ? 'รูปภาพต้องมีขนาดไม่เกิน 5 MB'
-                    : 'กรุณาเลือกไฟล์ JPG, PNG, WEBP หรือ GIF';
-                return;
-            }
-
-            const reviewCard = document.createElement('article');
-            const reviewTop = document.createElement('div');
-            const reviewAvatar = document.createElement('span');
-            const avatarIcon = document.createElement('i');
-            const reviewerInfo = document.createElement('div');
-            const name = document.createElement('strong');
-            const stars = document.createElement('span');
-            const text = document.createElement('p');
-            let reviewPhoto;
-
-            reviewCard.className = 'review-card';
-            reviewTop.className = 'review-top';
-            reviewAvatar.className = 'review-avatar';
-            reviewAvatar.setAttribute('aria-hidden', 'true');
-            avatarIcon.className = 'fa-solid fa-user';
-            reviewerInfo.className = 'reviewer-info';
-            stars.className = 'stars';
-            stars.setAttribute('aria-label', reviewRating + ' จาก 5 ดาว');
-            name.textContent = reviewerName;
-            stars.textContent = '★'.repeat(reviewRating) + '☆'.repeat(5 - reviewRating);
-            text.textContent = reviewText;
-
-            if (photo) {
-                reviewPhoto = document.createElement('img');
-                reviewPhoto.className = 'review-photo';
-                reviewPhoto.alt = 'รูปภาพที่แนบมากับรีวิว';
-                reviewPhoto.src = URL.createObjectURL(photo);
-                reviewPhotoUrls.push(reviewPhoto.src);
-            }
-
-            reviewAvatar.appendChild(avatarIcon);
-            reviewerInfo.append(name, stars);
-            reviewTop.append(reviewAvatar, reviewerInfo);
-            reviewCard.append(reviewTop, text);
-            if (reviewPhoto) {
-                reviewCard.appendChild(reviewPhoto);
-            }
-            document.querySelector('.review-list').prepend(reviewCard);
-            reviewPhotoError.textContent = '';
-            document.getElementById('reviewForm').reset();
-            $('#reviewModal').modal('hide');
-        });
-
-        window.addEventListener('beforeunload', function () {
-            reviewPhotoUrls.forEach(function (url) {
-                URL.revokeObjectURL(url);
-            });
-        });
-    </script>
     <footer class="site-footer">
         <div class="container">
             <div class="row">
