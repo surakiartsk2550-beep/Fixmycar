@@ -113,13 +113,16 @@
                     <img src="img/duckduck.gif" alt="duckduck" width="300" height="300">
                     <h1>กรุณาเข้าสู่ระบบ</h1>
                         <div id="phoneStep">
-                            <div class="phone-input">
-                                <input type="text" id="inputPhone" placeholder="เบอร์มือถือ" inputmode="numeric" maxlength="12" required autofocus oninput=" this.value = this.value .replace(/[^0-9]/g, '') .replace(/(\d{3})(\d{0,3})(\d{0,4})/, '$1-$2-$3') .replace(/-+$/, '') ">
-                            </div>
-                            <button type="button" class="next-button" onclick="nextStep()">กดถัดไป</button>
-                            <p class="terms-text">เมื่อดำเนินการต่อ แสดงว่าคุณยอมรับ<u>ข้อกำหนดการใช้งาน</u> และ<u>นโยบายความเป็นส่วนตัว</u>ของ FIXMYCAR</p>
+                            <form id="phoneForm" novalidate onsubmit="event.preventDefault(); nextStep();">
+                                <div class="phone-input">
+                                    <input type="tel" id="inputPhone" name="phone" autocomplete="tel-national" placeholder="เบอร์มือถือ" inputmode="numeric" maxlength="12" required autofocus oninput=" this.value = this.value .replace(/[^0-9]/g, '') .replace(/(\d{3})(\d{0,3})(\d{0,4})/, '$1-$2-$3') .replace(/-+$/, '') ">
+                                </div>
+                                <button type="submit" class="next-button">กดถัดไป</button>
+                                <p class="terms-text">เมื่อดำเนินการต่อ แสดงว่าคุณยอมรับ<u>ข้อกำหนดการใช้งาน</u> และ<u>นโยบายความเป็นส่วนตัว</u>ของ FIXMYCAR</p>
+                            </form>
                         </div>
                     <div id="otpStep" style="display: none;">
+                      <form id="otpForm" novalidate onsubmit="event.preventDefault();">
                         <div class="otp-phone">
                             <span>ส่ง SMS ไปที่เบอร์</span>
                             <strong id="showPhone"></strong>
@@ -136,6 +139,7 @@
                             <input type="text" maxlength="1" inputmode="numeric" oninput="this.value = this.value .replace(/[^0-9]/g, '')">
                         </div>
                         <a href="#" class="resend" id="resendLink" onclick="event.preventDefault(); startCountdown();">ส่งรหัสอีกครั้งใน (59 วินาที)</a>
+                      </form>
                     </div>
             </div>
     </div>
