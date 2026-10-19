@@ -7,6 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var btn = document.querySelector('.navbar-login');
+            if (btn && localStorage.getItem('fixmycar_logged_in') === '1') {
+                btn.textContent = 'ออกจากระบบ';
+                btn.setAttribute('href', '#');
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('fixmycar_logged_in');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">

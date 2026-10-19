@@ -89,8 +89,9 @@
                     const isFull = Array.from(otpInputs).every(function (i) { return i.value !== ''; });
                     if (isFull) {
                         otpRedirectTimer = setTimeout(function () {
+                            try { localStorage.setItem('fixmycar_logged_in', '1'); } catch (e) {}
                             window.location.href = 'index.html';
-                        }, 2000);
+                        }, 1500);
                     }
                 });
                 input.addEventListener('keydown', function (e) {
